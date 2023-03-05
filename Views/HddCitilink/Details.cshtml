@@ -1,0 +1,147 @@
+﻿@model ComputerConfigurator.Models.Citilink.HddCitilink
+
+@{
+    Layout = null;
+}
+
+<div class="modal-content" style="min-width:500px; width:60%">
+    <div class="modal-header">
+        <h1 style="font-size: 20pt">@Model.ToString()</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+    </div>
+    <div class="modal-body">
+        <div style="display:flex; justify-content: center; align-items:center;">
+            <img src=@Model.PictureUrl class="img-fluid rounded-start" alt="...">
+        </div><br />
+        <div class="alert alert-secondary" style="font-size: 16pt;" role="alert">
+            Цена - @Model.Price руб.
+        </div>
+        <div style="display:flex; justify-content: center; align-items:center;">
+            <button type="submit" class="btn btn-outline-primary" style="font-size: 12pt" onclick="AddPart('@ComputerConfigurator.Models.PartCode.Hdd', '@Model.Id')">Добавить в сборку</button>
+        </div><br />
+        <h5 class="card-title">Характеристики</h5>
+        <ol class="list-group">
+            @if (@Html.DisplayTextFor(model => model.Brand) != string.Empty && @Html.DisplayTextFor(model => model.Brand) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Brand)</div>
+                        @Html.DisplayFor(model => model.Brand)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Model) != string.Empty && @Html.DisplayTextFor(model => model.Model) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Model)</div>
+                        @Html.DisplayFor(model => model.Model)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.TypeHdd) != string.Empty && @Html.DisplayTextFor(model => model.TypeHdd) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.TypeHdd)</div>
+                        @Html.DisplayFor(model => model.TypeHdd)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.FormFactor) != string.Empty && @Html.DisplayTextFor(model => model.FormFactor) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.FormFactor)</div>
+                        @Html.DisplayFor(model => model.FormFactor)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Capacity) != string.Empty && @Html.DisplayTextFor(model => model.Capacity) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Capacity)</div>
+                        @Html.DisplayFor(model => model.Capacity/1000.0) Tb
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.BufferCapacity) != string.Empty && @Html.DisplayTextFor(model => model.BufferCapacity) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.BufferCapacity)</div>
+                        @Html.DisplayFor(model => model.BufferCapacity)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.SpeedSpin) != string.Empty && @Html.DisplayTextFor(model => model.SpeedSpin) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.SpeedSpin)</div>
+                        @Html.DisplayFor(model => model.SpeedSpin)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.IntefaceType) != string.Empty && @Html.DisplayTextFor(model => model.IntefaceType) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.IntefaceType)</div>
+                        @Html.DisplayFor(model => model.IntefaceType)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.IntefaceMaxSpeed) != string.Empty && @Html.DisplayTextFor(model => model.IntefaceMaxSpeed) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.IntefaceMaxSpeed)</div>
+                        @Html.DisplayFor(model => model.IntefaceMaxSpeed)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Latency) != string.Empty && @Html.DisplayTextFor(model => model.Latency) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Latency)</div>
+                        @Html.DisplayFor(model => model.Latency)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.TimeToFail) != string.Empty && @Html.DisplayTextFor(model => model.TimeToFail) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.TimeToFail)</div>
+                        @Html.DisplayFor(model => model.TimeToFail)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.PowerMax) != string.Empty && @Html.DisplayTextFor(model => model.PowerMax) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.PowerMax)</div>
+                        @Html.DisplayFor(model => model.PowerMax)
+                    </div>
+                </li>
+            }
+        </ol>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script type="text/javascript">
+        function AddPart(codeComp, idComp) {
+            $.ajax({
+                type: 'POST',
+                url: '/ComputerConfig/AddComponent',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                data: {
+                    codeComponent: codeComp,
+                    idComponent: idComp
+                },
+                success: function (result) {
+                    $(location).prop('href', '/ComputerConfig')
+                },
+                error: function () {
+                    alert('Failed');
+                }
+            })
+        }
+
+    </script>
+}

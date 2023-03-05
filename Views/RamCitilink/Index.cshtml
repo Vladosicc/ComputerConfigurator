@@ -1,0 +1,87 @@
+﻿@model IEnumerable<ComputerConfigurator.Models.Citilink.RamCitilink>
+
+@{
+    ViewData["Title"] = "Оперативная память";
+}
+
+<h1>ОЗУ</h1>
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">@Html.ActionLink("Главная", "Index", "Home")</li>
+        <li class="breadcrumb-item active" aria-current="page">Оперативная память</li>
+    </ol>
+</nav>
+<div id="modDialog" class="modal fade">
+    <div id="dialogContent" class="modal-dialog"></div>
+</div>@foreach (var item in Model)
+{
+    <div class="card mb-3" style="display:flex; max-width: 700px; max-height: 290px;">
+        <div class="row g-0">
+            <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                <img src=@item.PictureUrl class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5>
+                        @Html.ActionLink(item.ToString(), "Details", new { id = item.Id }, new { @class = "productItem" })
+                    </h5>
+                    <p class="card-text">
+                        <div>
+                            <b>Цена - @item.Price руб.</b><br>
+                            Тип памяти - @item.Type<br>
+                            Объем модуля (гб) - @item.Capacity<br>
+                            Частота (МГц) - @item.Frequency<br>
+                            Кол-во модулей - @item.ModulCount<br>
+                            Форм-фактор - @item.FormFactor
+                        </div>
+                    </p>
+                    <p class="card-text">
+                        <small class="text-muted">
+                            <button type="submit" class="btn btn-outline-primary" style="font-size: 12pt" onclick="AddPart('@ComputerConfigurator.Models.PartCode.Ram', '@item.Id')">Добавить в сборку</button>
+                            Ссылка: <a href=@item.Url>Ситилинк</a>
+                        </small>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section scripts
+    {
+    <script type="text/javascript">
+
+        $(function () {
+            $.ajaxSetup({ cache: false });
+            $(".productItem").click(function (e) {
+
+                e.preventDefault();
+                $.get(this.href, function (data) {
+                    $('#dialogContent').html(data);
+                    $('#modDialog').modal('show');
+                });
+            });
+        })
+    </script>
+
+    <script type="text/javascript">
+        function AddPart(codeComp, idComp) {
+            $.ajax({
+                type: 'POST',
+                url: '/ComputerConfig/AddComponent',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                data: {
+                    codeComponent: codeComp,
+                    idComponent: idComp
+                },
+                success: function (result) {
+                    $(location).prop('href', '/ComputerConfig')
+                },
+                error: function () {
+                    alert('Failed');
+                }
+            })
+        }
+
+    </script>
+}

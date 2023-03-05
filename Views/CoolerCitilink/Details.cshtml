@@ -1,0 +1,214 @@
+﻿@model ComputerConfigurator.Models.Citilink.CoolerCitilink
+
+@{
+    Layout = null;
+}
+
+<div class="modal-content" style="min-width:500px; width:60%">
+    <div class="modal-header">
+        <h1 style="font-size: 20pt">@Model.ToString()</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+    </div>
+    <div class="modal-body">
+        <div style="display:flex; justify-content: center; align-items:center;">
+            <img src=@Model.PictureUrl class="img-fluid rounded-start" alt="...">
+        </div><br />
+        <div class="alert alert-secondary" style="font-size: 16pt;" role="alert">
+            Цена - @Model.Price руб.
+        </div>
+        <div style="display:flex; justify-content: center; align-items:center;">
+            <button type="submit" class="btn btn-outline-primary" style="font-size: 12pt" onclick="AddPart('@ComputerConfigurator.Models.PartCode.Cooler', '@Model.Id')">Добавить в сборку</button>
+        </div><br />
+        <h5 class="card-title">Характеристики</h5>
+        <ol class="list-group">
+            @if (@Html.DisplayTextFor(model => model.Brand) != string.Empty && @Html.DisplayTextFor(model => model.Brand) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Brand)</div>
+                        @Html.DisplayFor(model => model.Brand)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Model) != string.Empty && @Html.DisplayTextFor(model => model.Model) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Model)</div>
+                        @Html.DisplayFor(model => model.Model)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Type) != string.Empty && @Html.DisplayTextFor(model => model.Type) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Type)</div>
+                        @Html.DisplayFor(model => model.Type)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.FanCount) != string.Empty && @Html.DisplayTextFor(model => model.FanCount) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.FanCount)</div>
+                        @Html.DisplayFor(model => model.FanCount)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.FanSize) != string.Empty && @Html.DisplayTextFor(model => model.FanSize) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.FanSize)</div>
+                        @Html.DisplayFor(model => model.FanSize)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.BlowDirection) != string.Empty && @Html.DisplayTextFor(model => model.BlowDirection) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.BlowDirection)</div>
+                        @Html.DisplayFor(model => model.BlowDirection)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.BlowPowerCfm) != string.Empty && @Html.DisplayTextFor(model => model.BlowPowerCfm) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.BlowPowerCfm)</div>
+                        @Html.DisplayFor(model => model.BlowPowerCfm)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.NoiseLevel) != string.Empty && @Html.DisplayTextFor(model => model.NoiseLevel) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.NoiseLevel)</div>
+                        @Html.DisplayFor(model => model.NoiseLevel)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.FanSpeed) != string.Empty && @Html.DisplayTextFor(model => model.FanSpeed) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.FanSpeed)</div>
+                        @Html.DisplayFor(model => model.FanSpeed)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.BearingType) != string.Empty && @Html.DisplayTextFor(model => model.BearingType) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.BearingType)</div>
+                        @Html.DisplayFor(model => model.BearingType)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.TdpMax) != string.Empty && @Html.DisplayTextFor(model => model.TdpMax) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.TdpMax)</div>
+                        @Html.DisplayFor(model => model.TdpMax)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.SocketSupport) != string.Empty && @Html.DisplayTextFor(model => model.SocketSupport) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.SocketSupport)</div>
+                        @foreach (var item in Model.SocketSupport)
+                        {
+                            @item.Description<br />
+                        }
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Base) != string.Empty && @Html.DisplayTextFor(model => model.Base) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Base)</div>
+                        @Html.DisplayFor(model => model.Base)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.UsePipes) != string.Empty && @Html.DisplayTextFor(model => model.UsePipes) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.UsePipes)</div>
+                        @Html.DisplayFor(model => model.UsePipes)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Connector) != string.Empty && @Html.DisplayTextFor(model => model.Connector) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Connector)</div>
+                        @Html.DisplayFor(model => model.Connector)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.PowerMax) != string.Empty && @Html.DisplayTextFor(model => model.PowerMax) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.PowerMax)</div>
+                        @Html.DisplayFor(model => model.PowerMax)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Lighting) != string.Empty && @Html.DisplayTextFor(model => model.Lighting) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Lighting)</div>
+                        @Html.DisplayFor(model => model.Lighting)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Lenght) != string.Empty && @Html.DisplayTextFor(model => model.Lenght) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Lenght)</div>
+                        @Html.DisplayFor(model => model.Lenght)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Width) != string.Empty && @Html.DisplayTextFor(model => model.Width) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Width)</div>
+                        @Html.DisplayFor(model => model.Width)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Height) != string.Empty && @Html.DisplayTextFor(model => model.Height) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Height)</div>
+                        @Html.DisplayFor(model => model.Height)
+                    </div>
+                </li>
+            }
+        </ol>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script type="text/javascript">
+        function AddPart(codeComp, idComp) {
+            $.ajax({
+                type: 'POST',
+                url: '/ComputerConfig/AddComponent',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                data: {
+                    codeComponent: codeComp,
+                    idComponent: idComp
+                },
+                success: function (result) {
+                    $(location).prop('href', '/ComputerConfig')
+                },
+                error: function () {
+                    alert('Failed');
+                }
+            })
+        }
+
+    </script>
+}

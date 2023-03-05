@@ -1,0 +1,511 @@
+﻿@model ComputerConfigurator.Models.ConfigurationCitilink
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">@Html.ActionLink("Главная", "Index", "Home")</li>
+        <li class="breadcrumb-item active" aria-current="page">Конфигурация</li>
+    </ol>
+</nav>
+
+<h1>Моя конфигурация</h1>
+
+<div>
+    <h4>Конфигурация: @Model.Id</h4>
+    @foreach(var item in Model.Errors.Values.Where(e => e.Type == ErrorType.Critical))
+    {
+        <div class="alert alert-danger" role="alert">
+            @item.Code: @item.Message
+        </div>
+    }
+    @foreach(var item in Model.Errors.Values.Where(e => e.Type == ErrorType.Warn))
+    {
+        <div class="alert alert-warning" role="alert">
+            @item.Code: @item.Message
+        </div>
+    }
+    @foreach(var item in Model.Errors.Values.Where(e => e.Type == ErrorType.Info))
+    {
+        <div class="alert alert-info" role="alert">
+            @item.Code: @item.Message
+        </div>
+    }
+    <hr />
+    <p>
+        <button class="btn btn-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            Основная информация
+        </button>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <p>Общая стоимость - <b>@Model.Price</b></p>
+            <p>Сокет - @Html.DisplayFor(model => model.Socket.Description)</p>
+            <p>ОЗУ - @Html.DisplayFor(model => model.MemoryAmount) Гб | @Html.DisplayFor(model => model.MotherboardRamType)</p>
+            <p>Кол-во предупреждений - @Html.DisplayFor(model => model.Errors.Count)</p>
+        </div>
+    </div>
+        <!--Процессор-->
+        @if(Model.ProcessorId != null)
+        {
+            <div class="card mb-3" style="display:flex;">
+                <div class="row g-0">
+                <div class="col-md-4" style="display:flex; justify-content: center; align-items:center; ">
+                        <img src=@Model.Processor.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Процессор</h5>
+                            <p class="card-text">@Model.Processor.ToString()</p>
+                            <div style="font-size: 12pt">
+                                <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Processor')">Удалить из сборки</button><br>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.Processor.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Процессор не выбран</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "CpuCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Видеокарта-->
+        @if (Model.GraphicCardId != null)
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src=@Model.GraphicCard.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Видеокарта</h5>
+                            <p class="card-text">@Model.GraphicCard.ToString()</p>
+                            <div style="font-size: 12pt">
+                            <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Gpu')">Удалить из сборки</button><br>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.GraphicCard.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Видеокарта не выбрана</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "GpuCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Материнская плата-->
+        @if (Model.MotherboardId != null)
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                        <img src=@Model.Motherboard.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Материнская плата</h5>
+                            <p class="card-text">@Model.Motherboard.ToString()</p>
+                            <div style="font-size: 12pt">
+                            <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Motherboard')">Удалить из сборки</button><br>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.Motherboard.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Материнская плата не выбрана</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "MotherboardCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--ОЗУ-->
+        @if (Model.RamId != null)
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                        <img src=@Model.Ram.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Оперативная память</h5>
+                            <p class="card-text">@Model.Ram.ToString() (@Model.RamCount шт.)</p>
+                            <div style="font-size: 12pt">
+                            <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Ram')">Удалить из сборки</button>
+                                <p class="card-text">
+                                    <div class="btn-group" role="group">
+                                        <button type="button" class="btn btn-warning" onclick="DecrementRam()">Удалить модуль</button>
+                                        <button type="button" class="btn btn-success" onclick="IncrementRam()">Добавить модуль</button>
+                                    </div>
+                                </p>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.Ram.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                        <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Оперативная память не выбрана</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "RamCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Кулер-->
+        @if (Model.CoolerId != null)
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src=@Model.Cooler.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Кулер</h5>
+                            <p class="card-text">@Model.Cooler.ToString()</p>
+                            <div style="font-size: 12pt">
+                            <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Cooler')">Удалить из сборки</button><br>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.Cooler.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Кулер не выбран</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "CoolerCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Корпус-->
+        @if (Model.CasingId != null)
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src=@Model.Casing.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Корпус</h5>
+                            <p class="card-text">@Model.Casing.ToString()</p>
+                            <div style="font-size: 12pt">
+                            <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Casing')">Удалить из сборки</button><br>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.Casing.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Корпус не выбран</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "CasingCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--БП-->
+        @if (Model.PsuId != null)
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                        <img src=@Model.Psu.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Блок питания</h5>
+                            <p class="card-text">@Model.Psu.ToString()</p>
+                            <div style="font-size: 12pt">
+                            <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Psu')">Удалить из сборки</button><br>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.Psu.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                        <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Блок питания не выбран</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "PsuCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--HDD-->
+        @if (Model.HddId != null)
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src=@Model.Hdd.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Жесткий диск</h5>
+                            <p class="card-text">@Model.Hdd.ToString()</p>
+                            <div style="font-size: 12pt">
+                            <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Hdd')">Удалить из сборки</button><br>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.Hdd.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Жесткий диск не выбран</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "HddCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--SSD-->
+        @if (Model.SsdId != null)
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                        <img src=@Model.Ssd.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Твердотельный накопитель</h5>
+                            <p class="card-text">@Model.Ssd.ToString()</p>
+                            <div style="font-size: 12pt">
+                            <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Ssd')">Удалить из сборки</button><br>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.Ssd.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                        <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Твердотельный накопитель не выбран</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "SsdCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        <!--Аудиокарта-->
+        @if (Model.AudiocardId != null)
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                    <img src=@Model.Audiocard.PictureUrl class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Аудиокарта</h5>
+                            <p class="card-text">@Model.Audiocard.ToString()</p>
+                            <div style="font-size: 12pt">
+                            <button type="button" class="btn btn-danger" onclick="RemovePart('@ComputerConfigurator.Models.PartCode.Audiocard')">Удалить из сборки</button><br>
+                            </div>
+                            <p class="card-text"><small class="text-muted"><a href=@Model.Audiocard.Url>Ссылка на страницу в магазине</a></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="card mb-3" style="display:flex;  ">
+                <div class="row g-0">
+                    <div class="col-md-4" style="display:flex; justify-content: center; align-items:center;">
+                        <img src="image/no_image.jpg" class="img-fluid rounded-start" style="max-inline-size: 80%" alt="...">
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Аудиокарта не выбрана</h5>
+                            <p class="card-text">Для выбора комплектующего воспользуйтесь списком на этой странице, или на отдельных страницах с @Html.ActionLink("комплектующими", "Index", "AudiocardCitilink")</p>
+                            <p class="card-text"><small class="text-muted"></small></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function RemovePart(data) {
+            console.log(data);
+            $.ajax({
+                type: 'POST',
+                url: '/ComputerConfig/DeleteComponent',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                data: {
+                    codeComponent: data
+                },
+                success: function (result) {
+                    $(location).prop('href', '/ComputerConfig')
+                },
+                error: function () {
+                    alert('Failed');
+                }
+            })
+        }
+    
+    </script>
+
+    <script type="text/javascript">
+        function IncrementRam() {
+            $.ajax({
+                type: 'POST',
+                url: '/ComputerConfig/IncrementRamComponent',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                success: function (result) {
+                    $(location).prop('href', '/ComputerConfig')
+                },
+                error: function () {
+                    alert('Failed');
+                }
+            })
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        function ClearConfig() {
+            $.ajax({
+                type: 'POST',
+                url: '/ComputerConfig/ClearConfig',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                success: function (result) {
+                    $(location).prop('href', '/ComputerConfig')
+                },
+                error: function () {
+                    alert('Failed');
+                }
+            })
+        }
+
+    </script>
+
+    <script type="text/javascript">
+        function DecrementRam() {
+            $.ajax({
+                type: 'POST',
+                url: '/ComputerConfig/DecrementRamComponent',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                success: function (result) {
+                    $(location).prop('href', '/ComputerConfig')
+                },
+                error: function () {
+                    alert('Failed');
+                }
+            })
+        }
+
+    </script>
+}

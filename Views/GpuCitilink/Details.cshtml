@@ -1,0 +1,291 @@
+﻿@model ComputerConfigurator.Models.Citilink.GpuCitilink
+
+@{
+    Layout = null;
+}
+
+<div class="modal-content" style="min-width:500px; width:60%">
+    <div class="modal-header">
+        <h1 style="font-size: 20pt">@Model.ToString()</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+    </div>
+    <div class="modal-body">
+        <div style="display:flex; justify-content: center; align-items:center;">
+            <img src=@Model.PictureUrl class="img-fluid rounded-start" alt="...">
+        </div><br />
+        <div class="alert alert-secondary" style="font-size: 16pt;" role="alert">
+            Цена - @Model.Price руб.
+        </div>
+        <div style="display:flex; justify-content: center; align-items:center;">
+            <button type="submit" class="btn btn-outline-primary" style="font-size: 12pt" onclick="AddPart('@ComputerConfigurator.Models.PartCode.Gpu', '@Model.Id')">Добавить в сборку</button>
+        </div><br />
+        <h5 class="card-title">Характеристики</h5>
+        <ol class="list-group">
+            @if (@Html.DisplayTextFor(model => model.Brand) != string.Empty && @Html.DisplayTextFor(model => model.Brand) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Brand)</div>
+                        @Html.DisplayFor(model => model.Brand)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Model) != string.Empty && @Html.DisplayTextFor(model => model.Model) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Model)</div>
+                        @Html.DisplayFor(model => model.Model)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Interface) != string.Empty && @Html.DisplayTextFor(model => model.Interface) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Interface)</div>
+                        @Html.DisplayFor(model => model.Interface)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.ChipsetBrand) != string.Empty && @Html.DisplayTextFor(model => model.ChipsetBrand) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.ChipsetBrand)</div>
+                        @Html.DisplayFor(model => model.ChipsetBrand)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.ChipsetModel) != string.Empty && @Html.DisplayTextFor(model => model.ChipsetModel) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.ChipsetModel)</div>
+                        @Html.DisplayFor(model => model.ChipsetModel)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Frequency) != string.Empty && @Html.DisplayTextFor(model => model.Frequency) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Frequency)</div>
+                        @Html.DisplayFor(model => model.Frequency)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.TechProc) != string.Empty && @Html.DisplayTextFor(model => model.TechProc) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.TechProc)</div>
+                        @Html.DisplayFor(model => model.TechProc)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.MemoryAmount) != string.Empty && @Html.DisplayTextFor(model => model.MemoryAmount) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.MemoryAmount)</div>
+                        @Html.DisplayFor(model => model.MemoryAmount)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.MemoryType) != string.Empty && @Html.DisplayTextFor(model => model.MemoryType) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.MemoryType)</div>
+                        @Html.DisplayFor(model => model.MemoryType)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.MemoryFreq) != string.Empty && @Html.DisplayTextFor(model => model.MemoryFreq) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.MemoryFreq)</div>
+                        @Html.DisplayFor(model => model.MemoryFreq)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.MemoryBusBit) != string.Empty && @Html.DisplayTextFor(model => model.MemoryBusBit) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.MemoryBusBit)</div>
+                        @Html.DisplayFor(model => model.MemoryBusBit)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.ResolutionMax) != string.Empty && @Html.DisplayTextFor(model => model.ResolutionMax) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.ResolutionMax)</div>
+                        @Html.DisplayFor(model => model.ResolutionMax)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.DirectXOpenGlVer) != string.Empty && @Html.DisplayTextFor(model => model.DirectXOpenGlVer) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.DirectXOpenGlVer)</div>
+                        @Html.DisplayFor(model => model.DirectXOpenGlVer)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.RayTracing) != string.Empty && @Html.DisplayTextFor(model => model.RayTracing) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.RayTracing)</div>
+                        @Html.DisplayFor(model => model.RayTracing)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.NvidiaSupport) != string.Empty && @Html.DisplayTextFor(model => model.NvidiaSupport) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.NvidiaSupport)</div>
+                        @Html.DisplayFor(model => model.NvidiaSupport)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.DlssSupport) != string.Empty && @Html.DisplayTextFor(model => model.DlssSupport) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.DlssSupport)</div>
+                        @Html.DisplayFor(model => model.DlssSupport)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.DviCount) != string.Empty && @Html.DisplayTextFor(model => model.DviCount) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.DviCount)</div>
+                        @Html.DisplayFor(model => model.DviCount)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.HdmiCount) != string.Empty && @Html.DisplayTextFor(model => model.HdmiCount) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.HdmiCount)</div>
+                        @Html.DisplayFor(model => model.HdmiCount)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.DisplayPortCount) != string.Empty && @Html.DisplayTextFor(model => model.DisplayPortCount) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.DisplayPortCount)</div>
+                        @Html.DisplayFor(model => model.DisplayPortCount)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.HdmiVer) != string.Empty && @Html.DisplayTextFor(model => model.HdmiVer) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.HdmiVer)</div>
+                        @Html.DisplayFor(model => model.HdmiVer)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.DisplayPortVer) != string.Empty && @Html.DisplayTextFor(model => model.DisplayPortVer) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.DisplayPortVer)</div>
+                        @Html.DisplayFor(model => model.DisplayPortVer)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.MonitorCount) != string.Empty && @Html.DisplayTextFor(model => model.MonitorCount) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.MonitorCount)</div>
+                        @Html.DisplayFor(model => model.MonitorCount)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.ConnectorType) != string.Empty && @Html.DisplayTextFor(model => model.ConnectorType) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.ConnectorType)</div>
+                        @Html.DisplayFor(model => model.ConnectorType)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.PowerMax) != string.Empty && @Html.DisplayTextFor(model => model.PowerMax) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.PowerMax)</div>
+                        @Html.DisplayFor(model => model.PowerMax)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.PowerReccomended) != string.Empty && @Html.DisplayTextFor(model => model.PowerReccomended) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.PowerReccomended)</div>
+                        @Html.DisplayFor(model => model.PowerReccomended)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Lenght) != string.Empty && @Html.DisplayTextFor(model => model.Lenght) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Lenght)</div>
+                        @Html.DisplayFor(model => model.Lenght)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Thickness) != string.Empty && @Html.DisplayTextFor(model => model.Thickness) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Thickness)</div>
+                        @Html.DisplayFor(model => model.Thickness)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Height) != string.Empty && @Html.DisplayTextFor(model => model.Height) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Height)</div>
+                        @Html.DisplayFor(model => model.Height)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Width) != string.Empty && @Html.DisplayTextFor(model => model.Width) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Width)</div>
+                        @Html.DisplayFor(model => model.Width)
+                    </div>
+                </li>
+            }@if (@Html.DisplayTextFor(model => model.Configurations) != string.Empty && @Html.DisplayTextFor(model => model.Configurations) != "0")
+            {
+                <li class="list-group-item d-flex justify-content-between align-items-start">
+                    <div class="ms-2 me-auto">
+                        <div class="fw-bold">@Html.DisplayNameFor(model => model.Configurations)</div>
+                        @Html.DisplayFor(model => model.Configurations)
+                    </div>
+                </li>
+            }
+        </ol>
+    </div>
+</div>
+
+@section scripts
+    {
+    <script type="text/javascript">
+        function AddPart(codeComp, idComp) {
+            $.ajax({
+                type: 'POST',
+                url: '/ComputerConfig/AddComponent',
+                contentType: 'application/x-www-form-urlencoded; charset=UTF-8', // when we use .serialize() this generates the data in query string format. this needs the default contentType (default content type is: contentType: 'application/x-www-form-urlencoded; charset=UTF-8') so it is optional, you can remove it
+                data: {
+                    codeComponent: codeComp,
+                    idComponent: idComp
+                },
+                success: function (result) {
+                    $(location).prop('href', '/ComputerConfig')
+                },
+                error: function () {
+                    alert('Failed');
+                }
+            })
+        }
+
+    </script>
+}
