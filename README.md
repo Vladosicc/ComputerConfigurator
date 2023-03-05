@@ -4,7 +4,7 @@
 
 В приложении можно сконфигурировать ПК из комплектующих интернет-магазина техники Ситилинк
 
-Конфигуратор: [конфигуратор](http://45.141.100.241/ComputerConfig)
+Конфигуратор: [конфигуратор](http://computerconfigurator.ru/ComputerConfig)
 
 База данных комплектующих будет обновляться каждую ночь
 
@@ -14,7 +14,9 @@
 
 На данный момент доступны запросы для получения списков комплектующих в формате JSON
 
-http://45.141.100.241/api/products/[category] where category : audiocards/coolers/casings/processors/graphics/hdd/motherboards/psu/ram/ssd/sockets
+http://computerconfigurator.ru/api/products/[category] where category : audiocards/coolers/casings/processors/graphics/hdd/motherboards/psu/ram/ssd/sockets
+
+Пример: http://computerconfigurator.ru/api/products/coolers
 
 ## Технологии
 
